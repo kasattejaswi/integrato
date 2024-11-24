@@ -124,4 +124,4 @@ We welcome contributions from the community! To get started:
 
 ## License
 
-Integrato is released under the [MIT License](LICENSE).
+Integrato is released under the [GNU AFFERO GENERAL PUBLIC LICENSE](LICENSE).
