@@ -284,6 +284,64 @@ $ integrato cleanup --help
   ✖ Docker daemon is not running. Please start Docker and retry.
   ```
 
+## Comparison Table
+
+| **Feature/Aspect**          | **Integrato**                                                                                     | **Cucumber**                                                                               | **WireMock**                                                                         | **MockServer**                                                                       | **Postman/Newman**                                                                   |
+|-----------------------------|---------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
+| **Core Purpose**            | Unified tool for integration testing, mocking, and multi-environment profiling.                  | Behavior-driven development with test scenarios.                                          | API mocking and simulation for HTTP/HTTPS.                                          | HTTP/HTTPS mocking with request validation.                                         | API testing and automation with collections.                                         |
+| **Mocking Support**         | Built-in support for REST, gRPC, OpenAPI, Kafka, databases, and more.                            | No native mocking; requires external tools.                                               | Focuses solely on HTTP/HTTPS APIs.                                                  | Focuses solely on HTTP/HTTPS APIs.                                                  | Limited mocking via Postman servers.                                                |
+| **Test Configuration**      | YAML-based configuration for tests, mocks, and profiles.                                         | Gherkin-based; requires code for step definitions.                                        | No built-in test execution; requires external test frameworks.                      | No built-in test execution; requires external test frameworks.                      | Requires Postman collections and manual or scripted execution.                      |
+| **Multi-Protocol Support**  | REST, gRPC, GraphQL, WebSocket, Kafka, and more.                                                 | HTTP/REST only.                                                                           | HTTP/REST only.                                                                     | HTTP/REST only.                                                                     | HTTP/REST only.                                                                     |
+| **Environment Profiles**    | Native support for `local`, `QA`, `staging`, and custom profiles for mocks and tests.            | Requires custom scripts or CI/CD tools for environment management.                       | No built-in support for environment profiling.                                       | No built-in support for environment profiling.                                       | Requires manual setup or CI integration for different environments.                 |
+| **Dynamic Mocking**         | Allows stateful or dynamic responses (e.g., timestamps, request-based).                          | Not supported.                                                                            | Basic request matching; lacks dynamic/stateful responses.                           | Basic request matching; lacks dynamic/stateful responses.                           | Limited to static mock responses.                                                   |
+| **Ease of Use**             | Single YAML file for configuration; no additional code needed.                                   | Gherkin is readable but requires coding step definitions.                                 | Requires configuration files and separate orchestration for tests.                  | Requires configuration files and separate orchestration for tests.                  | GUI-driven; CLI (Newman) requires additional scripting.                              |
+| **CI/CD Integration**       | CLI-based, integrates seamlessly into pipelines; generates detailed reports.                     | Integrates with CI but requires test runners and step definitions.                       | Requires additional tools for CI integration.                                       | Requires additional tools for CI integration.                                       | CLI available (Newman) but requires manual setup.                                   |
+| **Supported Outputs**       | HTML, JSON, JUnit XML for reports.                                                               | Relies on test runners for output generation.                                             | No built-in reporting; requires external tools.                                     | No built-in reporting; requires external tools.                                     | JSON or console output via Newman.                                                  |
+| **Profiles for Multi-Env**  | Predefined profiles for `local`, `QA`, and custom configurations.                               | No built-in multi-environment profiling; manual scripting needed.                        | No environment profiling support.                                                   | No environment profiling support.                                                   | No environment profiling support; manual changes required for different setups.     |
+| **Lightweight Dependency**  | Uses Docker; no heavy frameworks required.                                                      | Requires specific runtime environments for step execution.                               | Lightweight but limited to HTTP/HTTPS.                                              | Lightweight but limited to HTTP/HTTPS.                                              | Requires Postman app for creation and collections; CLI (Newman) is lighter.         |
+| **Unique Features**         | Unified YAML for mocks, tests, and profiles; multi-protocol support; Docker-first approach.     | Human-readable test scenarios; widely adopted for BDD.                                   | Advanced HTTP mocking and simulation features.                                       | Strong validation for HTTP/HTTPS requests and responses.                            | Comprehensive API testing GUI; integration with collections.                        |
+
+---
+
+## Key Advantages of Integrato
+
+1. **Unified Tool**:
+   - Combines mocking, integration testing, and environment profiling in a single CLI-driven workflow.
+   - Removes the need to juggle multiple tools for testing and mocking.
+
+2. **Multi-Protocol Support**:
+   - Supports REST, gRPC, GraphQL, WebSocket, Kafka, and databases.
+   - Competitors like WireMock and MockServer are limited to HTTP/HTTPS.
+
+3. **YAML-Driven Simplicity**:
+   - A single `.integrato.yaml` file defines mocks, tests, and profiles.
+   - Eliminates the need for scripting or additional code like Cucumber’s step definitions.
+
+4. **Profiles for Multi-Environment Testing**:
+   - Native support for local, QA, staging, and custom profiles simplifies switching between environments.
+
+5. **Lightweight and Portable**:
+   - Uses Docker for all services, making it easy to run anywhere without heavy dependencies.
+
+6. **Developer and CI-Friendly**:
+   - CLI-first design integrates seamlessly into CI/CD pipelines.
+   - Generates detailed reports in multiple formats (HTML, JSON, JUnit).
+
+---
+
+## Why Integrato Stands Out
+
+Existing tools like Cucumber, WireMock, and MockServer focus on specific testing or mocking capabilities but lack the cohesive experience offered by Integrato. Integrato fills gaps by:
+
+1. **Combining Testing and Mocking**:
+   - Unlike Postman/Newman, which is API-focused, Integrato handles both mocking and testing.
+
+2. **Simplifying Workflows**:
+   - YAML-based workflows reduce complexity compared to Gherkin or manual configuration files.
+
+3. **Supporting Advanced Use Cases**:
+   - Offers support for diverse protocols and stateful responses, surpassing HTTP-only tools like MockServer.
+
 ---
 
 ## Roadmap
