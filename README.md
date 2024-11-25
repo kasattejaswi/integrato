@@ -96,6 +96,194 @@ Generate and view detailed test reports:
 integrato report --format=html
 ```
 
+
+## Command Overview
+
+```
+Integrato: Simplify integration testing with profiles, mocks, and Docker.
+Usage:
+  integrato [command] [options]
+
+Commands:
+  init                 Initialize a new .integrato.yaml file in the current directory.
+  run                  Execute integration tests based on the specified profile.
+  mocks                Manage mock servers (start, stop, list).
+  profiles             List available profiles and their configurations.
+  report               Generate and view test reports.
+  cleanup              Stop and remove all mock servers and related containers.
+
+Use "integrato [command] --help" for more information about a command.
+```
+
+---
+
+## Commands
+
+### 1. `integrato init`
+
+```
+$ integrato init
+```
+
+- **Description**:  
+  Initialize a new `.integrato.yaml` configuration file in the current directory.
+
+- **Options**:  
+  - `--overwrite`: Overwrite an existing `.integrato.yaml` file if present.
+
+- **Example**:  
+  ```
+  $ integrato init
+  ✔ Initialized .integrato.yaml in the current directory.
+  ```
+
+---
+
+### 2. `integrato run`
+
+```
+$ integrato run --help
+```
+
+- **Description**:  
+  Run integration tests for the specified profile. Spins up mock servers, starts the application, and executes tests.
+
+- **Options**:  
+  - `--profile <name>`: Specify the profile to use (Required).  
+  - `--parallel`: Run independent tests in parallel (Optional).  
+  - `--verbose`: Enable detailed output during test execution (Optional).  
+
+- **Example**:  
+  ```
+  $ integrato run --profile=local --verbose
+  ✔ Mock servers started for profile: local.
+  ✔ Application started locally.
+  ✔ Running integration tests...
+    - Test 1: User Login .......... PASS
+    - Test 2: API Response Check .. FAIL
+      Reason: Expected status 200 but received 500.
+    - Test 3: Kafka Topic Publish . PASS
+  ✔ Tests completed: 2 passed, 1 failed.
+  ✔ Report generated: ./reports/integrato-report.html
+  ```
+
+---
+
+### 3. `integrato mocks`
+
+```
+$ integrato mocks --help
+```
+
+- **Description**:  
+  Manage mock servers independently. Useful for debugging or manual testing.
+
+- **Subcommands**:  
+  - `start`: Start mock servers for a given profile.  
+  - `stop`: Stop mock servers for a given profile.  
+  - `list`: List active mock servers and their details.  
+
+- **Options**:  
+  - `--profile <name>`: Specify which profile’s mocks to start or stop.
+
+- **Examples**:  
+  ```
+  $ integrato mocks start --profile=local
+  ✔ Mock servers started for profile: local.
+    - OpenAPI Mock: http://localhost:4000
+    - MySQL Server: Running on port 3306
+
+  $ integrato mocks list
+  ✔ Active mock servers:
+    - OpenAPI Mock: http://localhost:4000
+    - MySQL Server: Running on port 3306
+
+  $ integrato mocks stop --profile=local
+  ✔ Stopped mock servers for profile: local.
+  ```
+
+---
+
+### 4. `integrato profiles`
+
+```
+$ integrato profiles --help
+```
+
+- **Description**:  
+  List available profiles from the `.integrato.yaml` file.
+
+- **Example**:  
+  ```
+  $ integrato profiles list
+  ✔ Available profiles:
+    - local: Mocks enabled, application starts via Docker.
+    - qa: Mocks disabled, testing against https://qa.example.com.
+    - staging: Mocks disabled, application uses preproduction services.
+  ```
+
+---
+
+### 5. `integrato report`
+
+```
+$ integrato report --help
+```
+
+- **Description**:  
+  Generate and display test reports.
+
+- **Options**:  
+  - `--format <type>`: Specify the format for the report: `html`, `json`, `junit` (Required).  
+  - `--output <path>`: Specify the output path for the report (Optional).  
+
+- **Examples**:  
+  ```
+  $ integrato report --format=html --output=./reports/test-report.html
+  ✔ Report generated: ./reports/test-report.html
+
+  $ integrato report --format=json
+  ✔ Report generated: ./reports/integrato-report.json
+  ```
+
+---
+
+### 6. `integrato cleanup`
+
+```
+$ integrato cleanup --help
+```
+
+- **Description**:  
+  Stops all running containers created by Integrato and removes related resources.
+
+- **Options**:  
+  - `--all`: Stop and remove all containers across profiles.
+
+- **Example**:  
+  ```
+  $ integrato cleanup
+  ✔ Stopped 2 mock servers.
+  ✔ Removed 2 Docker containers.
+  ✔ Cleanup complete.
+  ```
+
+---
+
+## General Notes
+
+- **Error Messages**:  
+  ```
+  $ integrato run --profile=nonexistent
+  ✖ Profile "nonexistent" not found in .integrato.yaml.
+  ```
+
+- **Docker-Specific Errors**:  
+  ```
+  $ integrato run --profile=local
+  ✖ Docker daemon is not running. Please start Docker and retry.
+  ```
+
 ---
 
 ## Roadmap
